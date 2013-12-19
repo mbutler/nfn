@@ -1,0 +1,16 @@
+<div class="col1">
+  <h1 class="title"><a href="#/">Notes from <span class="green">Nature</span></a></h1>
+</div>
+
+<%if @user: %>
+  <div class="link-navigation right">
+    <a class="signin_nav_link" href="#/profile"><%= @user.name %></a>
+  </div>
+<% end %>
+
+<div class="link-navigation right">
+  <a href="#/archives">Collections</a>
+  <a href="#/about">About</a>
+  <a href="http://talk.notesfromnature.org">Discuss</a>
+  <a href="http://blog.notesfromnature.org">Blog</a>
+</div>

@@ -1,0 +1,50 @@
+<section class="menu">
+  <div class="left">
+    <div class="block">
+      <h1><%- @archive.name %></h1>
+      <p>from <%- @archive.institute().name %></p>
+    </div>
+  </div>
+  <div class="right">
+    <div class="block settings options" id="settingsBlock">
+      <label>Settings</label>
+      <ul>
+        <li>
+          <label><input type="checkbox" id="autoMove" <% if @preferences.auto_move: %> checked<% end %>>
+          Automatically move to next entity</label>
+        </li>
+        <li>
+          <label><input type="checkbox" id="showEol" <% if @preferences.show_eol: %> checked<% end %>>
+          Show Encyclopedia of Life box</label>
+        </li>
+      </ul>
+    </div>
+    <div class="block tools options">
+      <label>Tools<p id="selected-tool"></p></label>
+      <ul id="tools-list">
+        <li id="cursor">Cursor</li>
+        <li id="multi-select">Multi-Select</li>
+      </ul>
+    </div>
+    <div class="block power" id="power"><div class="ring"><span></span></div></div>
+  </div>
+</section>
+
+<div class="boxes" id="boxes"></div>
+
+<div id="eol-widget"></div>
+
+<div id="data-entry" class="data-entry">
+  <section class="entry" id="entry">
+    <div class="disabled">
+      <input type="text" id="field" value="<%- @value %>" autocomplete="off" disabled>
+      <button id="done">Ok</button>
+    </div>
+  </section>
+  <section class="actions">
+    <ul id="tool-actions"></ul>
+    <ul class="interface-actions" id="interface-actions">
+      <li id="finish">Finish Page</li>
+    </ul>
+  </section>
+</div>

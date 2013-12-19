@@ -1,0 +1,17 @@
+<button id="finish" class="action">Finish</button>
+
+<section class="post-finish">
+	<button id="discuss">Discuss</button>
+	<button id="back">Back to Transcribing</button>
+	<button id="next-button" class="action">Next Ledger</button>
+</section>
+
+<section class="entry" id="entry">
+  <div id="entity"></div>
+</section>
+
+<section class="actions">
+  <ul id="tool-actions"></ul>
+</section>
+
+<section class="helper-box" id="helper-box"></section>

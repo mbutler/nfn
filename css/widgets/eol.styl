@@ -1,0 +1,65 @@
+#eol-widget
+  background: rgba(#000, 0.8)
+  border: 1px solid #000
+  border-radius: 8px
+  bottom: 33px
+  box-shadow: 0 0 15px 2px rgba(#000, 0.4)
+  color: #fff
+  cursor: pointer
+  font-size: 12px
+  height: 460px
+  max-height: 50%
+  overflow-x: hidden
+  overflow-y: auto
+  position: fixed !important
+  right: 33px
+  width: 250px
+
+  h1
+    font-size: 1.2em
+
+  h2
+    color: #8e8e8e
+    font-size: 0.8em
+    margin: 0
+    text-transform: uppercase
+
+  img
+    border: 1px solid #000
+    box-shadow: 0 0 4px 0 rgba(#000, 0.7)
+    box-sizing: border-box
+    height: 63px
+    width: 105px
+
+  section
+    box-sizing: border-box
+    padding: 7px 15px
+    position: relative
+
+    &:before, &:after
+      content: ''
+      height: 1px
+      left: 0
+      position: absolute
+      width: 100%
+
+    &:before
+      background: #000
+      bottom: 1px
+
+    &:after
+      background: #181818
+      bottom: 0
+
+  ul
+    @extends #semantic-list
+
+    li
+      float: left
+      width: 50%
+
+      &:nth-child(even)
+        text-align: right
+
+.active #eol-widget
+  z-index: 1001

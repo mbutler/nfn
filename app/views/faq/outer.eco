@@ -1,0 +1,15 @@
+<div class="wrapper">
+  <div class="faq-header">
+    <h2 class="title">Frequently Asked Questions</h2>
+  </div>
+
+  <div class="columns faq-content">
+    <div class="col2 about_content"></div>
+    <div class="col1">
+      <ul class="list-links">
+        <li><a href="#/faq/general" data-section="general">General questions</a></li>
+        <li><a href="#/faq/research" data-section="research">Research questions</a></li>
+      </ul>
+    </div>
+  </div>
+</div>

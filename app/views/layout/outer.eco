@@ -1,0 +1,28 @@
+<div class="wrapper">
+
+  <div class="box-general">
+    <h2 class="title">
+      Notes From Nature
+      <span class="subtitle">Transcribe notes from nature, contribute to science.</span>
+    </h2>
+  </div>
+
+  <div class="columns two">
+    <div class="column wide">
+      <div class="about_content"><%- @content %></div>
+      <div class="box-logos">
+        <span class="text">ORGANIZATIONS INVOLVED</span>
+        <ul class="logos">
+          <li><a href="http://www.nhm.ac.uk/tring/research-and-curation/index.html"><img alt="Natural History Museum" src="images/icons/natural_history_museum_white.jpg" /></a></li>
+          <li><a href="http://www.sernec.org/"><img alt="SERNEC" src="images/sernec.png" /></a></li>
+          <li><a href="http://calbug.berkeley.edu/"><img alt="Calbug" src="images/icons/calbug_white.jpg" /></a></li>
+          <li><a href="http://cumuseum.colorado.edu/"><img src="images/mnh-cu-white.jpg"></a></li>
+          <li><a href="http://vizzuality.com/"><img src="images/logos/vizzuality.png"></a></li>
+          <li><a href="http://www.nsf.gov/"><img alt="National Science Foundation" src="images/logos/national-science-foundation.gif"></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="column narrow"></div>
+  </div>
+
+</div>

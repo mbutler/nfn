@@ -1,0 +1,1503 @@
+.transcribingScreen
+  overflow: hidden
+
+.transcriber
+  z-index: 1000
+
+  &.birds, &.sernac
+    background: url("images/transcribers/bg-transcriber.png")
+    height: 100%
+    left: 0
+    overflow: hidden
+    position: absolute
+    top: 0
+    user-select: none
+    -webkit-touch-callout: none
+    -webkit-user-drag: none
+
+  &.sernac
+    width: 100%
+
+
+/* TOOLTIPS */
+.transcriber.birds, .transcriber.sernac {
+  .tooltip {
+    border-radius: 2px;
+    display: none;
+    position: absolute;
+    width: 175px;
+    right: 0;
+    padding: 7px 12px 12px 12px;
+    background: white;
+    text-align: left;
+
+
+    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 0 3px 2px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 0 3px 2px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 0 3px 2px;
+    z-index: 1001;
+
+    img {
+      border-radius: 2px;
+      display: none;
+      margin: 0 0 3px 0;
+    }
+
+    .description a { text-decoration: underline; }
+
+    &.example { 
+      height: 150px;
+
+      .loader { top: 80px; }
+        .btn    { position: absolute; bottom: 14px; left: 50%; width: 80px; margin-left: -40px; }
+
+    }
+
+    &.error {
+
+      strong { color: red; }
+
+      }
+
+    &.step {
+      padding: 0;
+      width: 175px;
+
+      .tip { left: auto; right: 10px; margin-left: 0; } 
+
+        ul {
+          @extends #semantic-list
+          li {
+            box-sizing: border-box;
+            padding: 5px 10px 5px 10px;
+            border-bottom: 1px solid #EDEDED;
+
+              &.completed {
+                border-bottom: 1px solid #EDEDED;
+                // background:url(images/bullet-green.png) no-repeat center left;
+                a { color: #693;  }
+              }
+
+              // background:url(images/bullet-orange-hollow.png) no-repeat center left;
+
+              &:hover a { text-decoration: underline; }
+
+            &.selected {
+              background:url(images/bullet-gray.png) no-repeat center left;
+              a { color: #666666; }
+            }
+
+            a {
+              font-size: 13px;
+              color: #F60;
+            }
+
+            span {
+              display: block;
+              font-size: 11px;
+              line-height: 15px;
+            }
+          }
+        }
+      }
+
+    &.with-spinner {
+    width: 369px;
+    height: 203px;
+    box-sizing: border-box;
+
+    img { position: absolute; width: auto; height: auto; left: 5px; top: 5px; border: 1px solid #838383; }
+    .btn { position: absolute; bottom: 15px; right: 15px; width: 80px; }
+    .loader { top: 50%; margin-top: -34px; }
+
+  }
+
+  .loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -30px;
+    margin-left: -30px;
+    border: none;
+    box-shadow: none;
+  }
+
+    &.ne .tip { // north east
+      position: absolute;
+      top: -6px;
+      right: 7px;
+      width: 13px;
+      height: 6px;
+      background: url(images/transcribers/tooltip-tip-top.png) no-repeat;
+      }
+
+    &.upsidedown .tip {
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      margin-left: -6px;
+      width: 13px;
+      height: 6px;
+      background: url(images/transcribers/tooltip-tip-top.png) no-repeat;
+      }
+
+  .tip {
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    margin-left: -6px;
+    width: 13px;
+    height: 6px;
+    background: url(images/transcribers/tooltip-tip.png) no-repeat;
+  }
+
+  .title {
+    font: bold 13px "Open Sans", sans-serif;
+    color: #191919;
+    text-transform: uppercase;
+  }
+
+  .description {
+    padding: 4px 0 0 0;
+    margin: 0 0 10px 0;
+    font: normal 13px "Helvetica", Arial, sans-serif;
+    color: #666;
+  }
+
+  .description a { color: #666; }
+    
+  .btn {
+    padding: 5px 0;
+    width: 83px;
+    font-family: "Open Sans", "Helvetica", sans-serif;
+    font-size: 11px;
+    font-weight: normal;
+
+    text-align: center;
+    -webkit-transition-property: background-color;
+    -moz-transition-property: background-color;
+    -o-transition-property: background-color;
+    transition-property: background-color;
+    -webkit-transition-duration: 300ms;
+    -moz-transition-duration: 300ms;
+    -o-transition-duration: 300ms;
+    transition-duration: 300ms;
+
+    &.main, &.secondary { font-weight: normal; }
+
+    &.main       { float: none; background: #F60; color: #FFF; }
+    &.secondary  { float: none; background: #f1f1f1; color: #666; border: 1px solid #ccc; }
+    &.main:hover { background: #FF7C09; }
+    &.secondary:hover { background: #fff; }
+   }
+  }
+}
+
+.transcriber.sernac
+  > .popup
+    background: rgba(#000, 0.5)
+    display: none
+    height: 100%
+    left: 0
+    position: fixed
+    top: 0
+    width: 100%
+    z-index: 100000
+
+    $popup-width = 550px
+    > .content
+      background: rgba(#000, 0.6)
+      border: 1px solid #000
+      border-radius: 8px
+      box-shadow: 0 0 5px 3px rgba(#000, 0.4)
+      box-sizing: border-box
+      color: #fff
+      left: calc(50% \- ($popup-width / 2))
+      left: -webkit-calc(50% \- ($popup-width / 2))
+      padding: 20px
+      position: absolute
+      top: 100px
+      width: $popup-width
+
+      > .text
+        overflow: auto
+
+      a
+        color: lighten(#693, 10%)
+
+        &:hover
+          color: lighten(#693, 30%)
+          text-decoration: underline
+
+      button
+        appearance: none
+        background: #693
+        border: 1px solid #060
+        border-radius: 3px
+        color: #fff
+        font-family: 'Open Sans', sans-serif
+        font-size: 13px
+        margin: 15px 0 0 0
+        padding: 5px 0
+        text-transform: uppercase
+        width: 100%
+
+      p
+        font-size: 13px
+        margin: 0 0 0.7em 0
+        text-shadow: rgba(#666, 0.5)
+
+
+
+/* STATUSBAR */
+.transcriber.sernac { 
+
+  .statusbar {
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-width: 1024px;
+    height: 80px;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.6);
+    background: #222222 url("images/transcribers/bg-header.png");
+    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+    z-index: 101;
+
+    .left {
+      float: left;
+      height: 60px;
+      margin: 0;
+      padding: 20px 0 0 24px;
+    }
+
+    .right {
+
+      position:absolute;
+      right: 0;
+      top: 0;
+
+      clear:both;
+      overflow:hidden;
+
+      .separator {
+        position:relative;
+        height:80px;
+        width:1px;
+        &::before { position:absolute; top:0; left:1px; height:80px; width:1px; content: ''; border-left: 1px solid rgba(255,255,255,0.1); }
+        &::after  { position:absolute; top:0; left:0; height:80px; width:1px; content: ''; border-left: 1px solid black; }
+      }
+
+      .separator, .off, .count {
+        float:left;
+        margin: 0 5px 0 0;
+      }
+
+      .off {
+        width: 50px;
+        text-align: center;
+
+        a {
+        display:block;
+        width: 33px;
+        height: 33px;
+
+        margin: 26px auto;
+        padding:0;
+        border:none;
+
+        background: url(images/btn-off.png) no-repeat 0 0;
+
+        &:hover  { background-position: 0 -32px; }
+        &:active  { background-position: 0 -66px; }
+
+        }
+      }
+
+      .count {
+
+        padding-right: 10px;
+        margin: 15px 10px 0 10px;
+
+        .counter {
+          float:left;
+          font:bold 38px "Open Sans";
+          color:white;
+          font-weight:800;
+          margin: 0 5px 0 0;
+        }
+
+        strong {
+          float:left;
+          width: 50px;
+          line-height: 15px;
+          margin: 12px 0 0 0;
+
+          font:bold 12px "Open Sans";
+          color:white; font-weight:800;
+          text-transform: uppercase;
+        }
+      }
+    }
+
+    h1, h3 {
+      cursor: default;
+      font-family: "Open Sans", sans-serif;
+      margin: 0;
+    }
+
+    h1 { font-weight:bold; font-size: 17px; color: white; font-weight: 800; text-transform: uppercase; }
+    h3 { font-weight: normal; font-size: 13px; color: #999; } 
+
+    .counter {
+      display:inline-block;
+      margin: 0 7px 0 0;
+      font: bold 38px "Open Sans";
+      color: white;
+      font-weight: 800;
+    }
+
+    strong {
+      display:inline-block;
+      width: 50px;
+      margin: 0 10px 0 0;
+      line-height: 0;
+      line-height: 15px!important;
+      font: bold 12px "Open Sans";
+      color: white;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.transcriber.sernac
+
+  .photos 
+    box-sizing: border-box
+    height: 100%
+    margin: auto
+    overflow: auto
+    padding: 94px 0 10px 0
+    text-align: center
+    z-index: 10
+
+
+.transcriber.sernac .photos.selectable img {
+  cursor: crosshair;
+}
+
+.transcriber.sernac .photos img {
+  display: none;
+  margin: 120px auto 170px auto;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-box-shadow: 1px 1px 9px rgba(0,0,0,.7);
+  -moz-box-shadow:    1px 1px 9px rgba(0,0,0,.7);
+  -o-box-shadow:      1px 1px 9px rgba(0,0,0,.7);
+  box-shadow:         1px 1px 9px rgba(0,0,0,.7);
+}
+
+
+.transcriber.fungi
+  
+  .magnifier img
+    max-width: 1400px
+
+  .photos img
+    max-width: 700px
+
+
+
+.transcriber.birds .photos img {
+  display: none;
+  margin: 120px auto 20px auto;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  box-shadow: 0 0 15px 13px rgba(0, 0, 0, 0.7);
+}
+
+.transcriber.bugs .photos img {
+  max-width: 80%;
+}
+
+.transcriber.sernac .bar
+  background: rgba(0, 0, 0, 0.8)
+  border: 1px solid #000
+  border-radius: 8px
+  box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.4)
+  box-sizing: border-box
+  display: none
+  height: 55px
+  padding: 11px 11px 11px 10px
+  position: absolute
+  width: 710px
+  z-index: 100
+
+.transcriber.sernac .backdrop {
+  display: none;
+  background-color: #000000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: .5;
+  //filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  z-index: 999;
+}
+
+.transcriber.sernac .message {
+  display:none;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  width: 500px;
+  height: 200px;
+  margin: -250px auto auto -250px;
+  text-align: center;
+  text-shadow: 1px 1px 1px #999999;
+
+  h1 { font-size: 50px; color: #000; opacity:.4; }
+  p { font-size: 18px; }
+  p.loading { margin: 70px 0 0 0; }
+}
+
+.transcriber.sernac .tooltip .loader {
+  position: absolute;
+  display: none;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -30px 0 0 -30px;
+  background: #333;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid black;
+  padding: 11px 11px 11px 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.4);
+  z-index: 2000;
+}
+
+.transcriber.sernac .loader {
+  position: absolute;
+  display: none;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -30px 0 0 -30px;
+  padding: 11px 11px 11px 10px;
+  z-index: 2000;
+}
+
+.transcriber.sernac .loader .spinner {
+  top: 20px;
+  margin: auto;
+}
+
+.transcriber.sernac .highlight
+  display: none
+  position: absolute
+  background: rgba(255, 103, 1, 0.15)
+  border: 1px solid #FF6701
+  cursor: pointer
+  -webkit-transition-property: background-color
+  -moz-transition-property: background-color
+  -o-transition-property: background-color
+  transition-property: background-color
+  -webkit-transition-duration: 300ms
+  -moz-transition-duration: 300ms
+  -o-transition-duration: 300ms
+  transition-duration: 300ms
+  z-index: 1000
+
+  &:hover
+    background: rgba(255, 103, 1, 0.35)
+
+  .close
+    position: absolute
+    width: 18px
+    height: 18px
+    top: -10px
+    right: -10px
+    background: url(images/transcribers/close.png) no-repeat
+
+
+.transcriber.sernac .selection {
+  position: absolute;
+  visibility: hidden;
+  background: rgba(255, 103, 1, 0.15);
+  border: 1px solid #FF6701;
+  cursor: nwse-resize;
+  z-index: 1000;
+}
+
+.transcriber.sernac .helper,
+.transcriber.bugs .helper,
+.transcriber.bugs .metadata
+  display: none
+  color: #fff
+  font: 11px "Open Sans"
+  overflow: visible !important
+  position: absolute
+  width: 690px
+  z-index: 3001
+
+  > .container
+    height: 0
+    position: relative
+
+    > .sub-container
+      @extends .transcriber.sernac .bar
+      bottom: 0
+      box-sizing: border-box
+      display: block
+      height: 22px
+      overflow: hidden
+      position: absolute
+      width: 100%
+
+  .toggle
+    cursor: pointer
+    position: absolute
+    right: 11px
+    text-decoration: dotted
+    text-transform: uppercase
+    top: 4px
+
+  .title
+    left: 10px
+    margin: 0 0 2px 0
+    position: absolute
+    text-transform: uppercase
+    top: 4px
+
+    .required
+      color: #f33
+    
+    .additional
+      color: #0f0
+    
+  .description
+    font: 12px/1.5em "Helvetica"
+    margin-top: 11px
+
+    .example
+      border-bottom: 1px solid #ccc
+      color: #fff
+      font: 12px "Helvetica"
+      position: relative
+      text-decoration: none
+
+      &:hover
+        border-bottom: 1px dashed #fff
+
+.transcriber.bugs .metadata
+  font-weight: 700
+  text-align: center
+  width: 580px
+
+  .meta
+    position: absolute
+    top: 4px
+    width: 100%
+
+// Discuss Button
+.transcriber .discuss,
+.transcriber .skipper
+  background: rgba(#000, 0.8)
+  border: 1px solid #000
+  border-radius: 8px
+  box-shadow: 0 0 5px 3px rgba(#000, 0.4)
+  box-sizing: border-box
+  color: #fff
+  display: none
+  position: absolute
+  transition: background 0.4s ease
+  z-index: 1000
+
+  &:hover
+    background: rgba(#333, 0.8)
+
+    > a
+
+      span
+        padding-bottom: 0
+
+
+  > a
+    color: inherit
+    display: block
+    padding: 6px 11px 11px
+
+    span
+      border-bottom: 2px solid #fff
+      font-size: 13px
+      padding-bottom: 3px
+      transition: all 0.4s ease
+
+.transcriber.sernac .launcher {
+
+  cursor: move;
+  padding: 10px 15px;
+  top: 110px;
+  width: 740px;
+  z-index: 1001;
+
+  span { cursor: default; }
+
+  .start.btn {
+    float: right;
+
+    font-size: 11px;
+
+    &.hidden { display: none; }
+  }
+
+  a.skip {
+    top: 8px;
+    float:right;
+
+    &.hidden { display: none; }
+  }
+
+  & > a.skip,
+  & > a.back,
+  & > a.example {
+    position: relative;
+    margin: 0 0 0 10px;
+    padding: 0 0 0 0;
+    border-bottom: 1px solid #ccc;
+    text-decoration: none;
+    font: 13px "Helvetica";
+    color: white;
+    &:hover { border-bottom: 1px dashed #fff; }
+ }
+
+ & > a.example, 
+ span { top: 4px; }
+
+ span {
+   position: relative;
+   font: 13px "Helvetica";
+   color: white;
+ }
+
+}
+
+.transcriber.bugs
+  > .bugs-widget,
+  > .helper
+    width: 580px
+
+.transcriber
+  .sernac-widget, .bugs-widget
+    cursor: move
+
+.transcriber.sernac .sernac-widget {
+  z-index: 10001;
+
+  .right {
+    position: absolute;
+    right: 10px;
+
+    .skip,
+    .back {
+      position: relative;
+      float: left;
+      top: 10px;
+      margin: 0 15px 0 0;
+      color: white;
+      font: 12px "Helvetica", Arial;
+      line-height: 13px;
+      border-bottom: 1px solid #fff;
+      text-decoration: none;
+
+      &:hover {
+        border-bottom: 1px dashed #fff;
+      }
+    }
+  }
+}
+
+.transcriber.sernac .sernac-widget .right .step {
+  position: relative;
+  float: left;
+  top: 6px;
+  color: white;
+  font: 12px "Helvetica", Arial;
+  line-height: 13px;
+  text-transform: uppercase;
+  background:#333;
+  border-radius: 2px;
+  height:12px;
+  width: 24px;
+  padding: 5px 4px;
+  text-align: center;
+
+  -webkit-transition-property: background-color;
+  -moz-transition-property: background-color;
+  -o-transition-property: background-color;
+  transition-property: background-color;
+  -webkit-transition-duration: 300ms;
+  -moz-transition-duration: 300ms;
+  -o-transition-duration: 300ms;
+  transition-duration: 300ms;
+ 
+  &:hover { text-decoration: underline; background: #666; }
+}
+
+.transcriber.sernac .sernac-widget .right .btn.finish {
+  position: relative;
+  float: left;
+  margin: 0 0 0 10px;
+
+  background: #FF7C09;
+  padding: 9px;
+  font-weight: normal;
+  font: normal 11px Helvetica;
+
+ -webkit-transition-property: background-color;
+ -moz-transition-property: background-color;
+ -o-transition-property: background-color;
+ transition-property: background-color;
+ -webkit-transition-duration: 300ms;
+ -moz-transition-duration: 300ms;
+ -o-transition-duration: 300ms;
+ transition-duration: 300ms;
+
+ &:hover { background: #FF7C09; }
+}
+
+.transcriber.sernac .sernac-widget .left {
+  position: absolute;
+  left: 10px;
+}
+
+.transcriber.sernac .sernac-widget .left .input_field
+  background: #fff
+  border-radius: 3px
+  float: left
+  height: 31px
+  position: relative
+  width: 180px
+
+  &.state, &.county, &.country
+    width: 250px
+
+  .state_field, .date_field, .county_field, .country_field
+
+    input
+      width: 250px
+
+    select
+      appearance: none
+      border: none
+      height: 100%
+      padding: 3px 10px 3px 5px
+      text-align: center
+      width: 100%
+
+  &.date
+    background: none
+    width: 405px
+
+    .btn.ok
+      float: right
+
+    .date_field
+
+      input
+        background: #fff
+        position: absolute
+
+        &.month
+          left: 0
+          width: 120px
+        &.day
+          left: 150px
+          width: 80px
+        &.year
+          left: 260px
+          width: 90px
+
+      select
+        appearance: none
+        border: none
+        height: 100%
+        padding: 3px 5px
+        position: absolute
+        text-align: center
+        width: 100%
+
+        &.month
+          left: 0
+          width: 120px
+        &.day
+          left: 150px
+          width: 80px
+        &.year
+          left: 260px
+          width: 90px
+
+  &.latlng
+    background: none
+    width: 350px
+
+    .btn.ok
+      float: right
+
+    .latlng_field
+      background: #fff
+      border-radius: 3px
+      float: left
+      height: 31px
+      margin: 0 7px 0 0
+      overflow: hidden
+      position: absolute
+
+      &.lat
+        left: 0
+        width: 120px
+
+      &.lng
+        left: 130px
+        width: 120px
+
+.transcriber.sernac .sernac-widget .left .input_field input[type="text"]::-webkit-input-placeholder { line-height: 15px; text-transform: uppercase; }
+.transcriber.sernac .sernac-widget .left .input_field input[type="text"]:-moz-placeholder { color: #ccc; line-height: 15px; text-transform: uppercase; } 
+
+.transcriber.sernac .sernac-widget .left .input_field input[type="text"] {
+  height: 20px;
+  margin: 0 5px 0 0;
+  padding: 5px 8px 5px;
+
+  font: 13px "Helvetica", Arial;
+  font-weight:bold;
+  line-height: 13px!important;
+  text-transform: none;
+  vertical-align: top;
+
+  background: none;
+  color: #666;
+
+  border: none;
+  outline: none;
+}
+
+.transcriber.sernac .sernac-widget .left .input_field .error,
+.transcriber.sernac .sernac-widget .left .input_field .btn.ok {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 20px;
+  height: 19px;
+  padding: 4px;
+
+  border: none;
+  font-weight: normal;
+  text-align:center;
+  font-size:11px;
+}
+
+.transcriber.sernac .sernac-widget .left .input_field .error 
+  display: none
+  background: red
+
+.transcriber.sernac .closer 
+  display: none
+  height: 18px
+  position: absolute
+  width: 18px
+  z-index: 2000
+
+  a
+    background: url(images/transcribers/close.png) no-repeat
+    display: block
+    height: 18px
+    margin-top: -5px
+    width: 18px
+
+.transcriber.sernac .magnifier {
+  position: absolute;
+  background: url("images/transcribers/bg-transcriber.png");
+  overflow: hidden;
+  box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+
+}
+.transcriber.sernac .magnifier.hollow {
+  background: rgba(255, 103, 1, 0.15);
+  border: 1px solid #FF6701;
+  cursor: pointer;
+  box-shadow: none;
+  -webkit-transition-property: background-color;
+  -moz-transition-property: background-color;
+  -o-transition-property: background-color;
+  transition-property: background-color;
+  -webkit-transition-duration: 500ms;
+  -moz-transition-duration: 500ms;
+  -o-transition-duration: 500ms;
+  transition-duration: 500ms;
+}
+.transcriber.sernac .magnifier.hollow:hover {
+  background: rgba(255, 103, 1, 0.3);
+}
+.transcriber.sernac .magnifier img {
+  position: absolute;
+  transform-origin: 0 0;
+  -webkit-transform-origin: 0 0;
+  -o-transform-origin: 0 0;
+  -moz-transform-origin: 0 0;
+}
+
+a.btn, .btn {
+  display: inline-block;
+  vertical-align: top;
+  padding: 6px 13px 7px;
+  border: 1px solid black;
+  border-radius: 3px;
+  font: 13px "Open Sans";
+  line-height: 18px;
+  color: #fff;
+  background: #669933;
+  -webkit-transition-property: opacity;
+  -moz-transition-property: opacity;
+  -o-transition-property: opacity;
+  transition-property: opacity;
+  -webkit-transition-duration: 300ms;
+  -moz-transition-duration: 300ms;
+  -o-transition-duration: 300ms;
+  transition-duration: 300ms;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 100;
+}
+.btn:hover, .btn:active {
+  outline: none;
+  background: #6EB422;
+}
+.btn:active {
+  padding: 7px 13px 6px;
+  background: #6EB422;
+}
+.btn.disabled, .btn.disabled:active {
+  opacity: 0.6;
+  padding: 6px 13px 7px;
+  background: #537c2a;
+}
+.btn.disabled:hover, .btn.disabled:active:hover {
+  background: #669933;
+}
+
+
+.ui-resizable-handle {
+  position: absolute;
+  display: block;
+}
+
+.ui-resizable-disabled .ui-resizable-handle,
+.ui-resizable-autohide .ui-resizable-handle {
+  display: none;
+}
+
+.ui-resizable-n {
+  cursor: n-resize;
+  width: 100%;
+  height: 7px;
+  position: absolute;
+  top: -5px;
+  left: 0;
+}
+
+.ui-resizable-s {
+  cursor: s-resize;
+  width: 100%;
+  height: 7px;
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+}
+
+.ui-resizable-e {
+  cursor: e-resize;
+  width: 7px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: -5px;
+}
+
+.ui-resizable-w {
+  cursor: w-resize;
+  width: 7px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: -5px;
+}
+
+.ui-resizable-se {
+  cursor: se-resize;
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  right: 1px;
+  bottom: 1px;
+}
+
+.ui-resizable-sw {
+  cursor: sw-resize;
+  width: 9px;
+  height: 9px;
+  position: absolute;
+  bottom: -5px;
+  left: -5px;
+}
+
+.ui-resizable-nw {
+  cursor: nw-resize;
+  width: 9px;
+  height: 9px;
+  position: absolute;
+  top: -5px;
+  left: -5px;
+}
+
+.ui-resizable-ne {
+  cursor: ne-resize;
+  width: 9px;
+  height: 9px;
+  position: absolute;
+  top: -5px;
+  bottom: -5px;
+}
+
+
+.ui-autocomplete {
+
+  &::before { background: url(images/transcribers/autocomplete-tip.png) no-repeat; position:absolute; top:-5px; right: 5px; width:13px; height: 6px; content: ''; }
+
+  background:#fff;
+  width: 220px;
+
+  margin: 10px 0 0 0;
+  position:absolute; 
+  top: 10px;
+
+  font: normal 13px "Helvetica",Arial;
+  color: #666;
+  box-shadow:  0 0 2px 1px rgba(0,0,0, 0.2);
+  border-radius:         3px;
+
+  li {
+
+    a {
+      display: block;
+      border-bottom: 1px solid #f1f1f1;
+      padding: 7px;
+      outline: none;
+      cursor: pointer;
+
+      -webkit-border-radius: 3px;
+      -moz-border-radius:    3px;
+      -o-border-radius:      3px;
+      border-radius:         3px;
+
+      &:hover { background: #f1f1f1; }
+    }
+
+  }
+}
+
+/* Scroll bars */
+.jspContainer { overflow: hidden; position: relative; }
+.jspPane { position: absolute; }
+.jspVerticalBar { position: absolute; top: 80px; right: 10px; width: 10px; height: 100%; }
+.jspHorizontalBar { position: absolute; bottom: 10px; left: 0; width: 100%; height: 10px; }
+.jspVerticalBar *,
+.jspHorizontalBar * { margin: 0; padding: 0; }
+.jspCap { display: none; }
+.jspHorizontalBar .jspCap { float: left; }
+.jspTrack { position: relative; }
+.jspDrag { 
+  background: rgba(0,0,0, 0.4);
+  border: 1px solid rgba(255,255,255, 0.4);
+  position: relative;
+  top: 0;
+  left: 0;
+  cursor: pointer; 
+
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -o-border-radius: 8px;
+  border-radius: 8px;
+}
+.jspHorizontalBar .jspTrack,
+.jspHorizontalBar .jspDrag { float: left; height: 100%; }
+.jspArrow { text-indent: -20000px; display: block; cursor: pointer; }
+.jspArrow.jspDisabled { cursor: default; }
+.jspVerticalBar .jspArrow { height: 10px; }
+.jspHorizontalBar .jspArrow { width: 10px; float: left; height: 100%; }
+.jspVerticalBar .jspArrow:focus { outline: none; }
+.jspCorner { float: left; height: 100%; }
+/* Yuk! CSS Hack for IE6 3 pixel bug :( */
+
+* html .jspCorner { margin: 0 -3px 0 0; }
+
+/* basic scrollbar styling */
+/* vertical scrollbar */
+.mCSB_container {
+  width: auto;
+  margin-right: 30px;
+  overflow: hidden;
+}
+
+.mCSB_container.mCS_no_scrollbar {
+  margin-right: 0;
+}
+
+.mCustomScrollBox .mCSB_scrollTools {
+  width: 16px;
+  height: 100%;
+  top: 0;
+  right: 10px;
+}
+
+.mCSB_scrollTools .mCSB_draggerContainer {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.mCSB_scrollTools .mCSB_buttonUp + .mCSB_draggerContainer {
+  padding-bottom: 40px;
+}
+
+.mCSB_scrollTools .mCSB_draggerRail {
+  width: 2px;
+  height: 100%;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
+.mCSB_scrollTools .mCSB_dragger {
+  cursor: pointer;
+  width: 100%;
+  height: 30px;
+}
+
+.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+  width: 10px;
+  height: 100%;
+  margin: 0 auto;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.mCSB_scrollTools .mCSB_buttonUp,
+.mCSB_scrollTools .mCSB_buttonDown {
+  height: 20px;
+  overflow: hidden;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.mCSB_scrollTools .mCSB_buttonDown {
+  bottom: 0;
+  margin-top: -40px;
+}
+
+/* horizontal scrollbar */
+.mCSB_horizontal .mCSB_container {
+  height: auto;
+  margin-right: 0;
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
+.mCSB_horizontal .mCSB_container.mCS_no_scrollbar {
+  margin-bottom: 0;
+}
+
+.mCSB_horizontal.mCustomScrollBox .mCSB_scrollTools {
+  width: 100%;
+  height: 16px;
+  top: auto;
+  right: auto;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.mCSB_horizontal .mCSB_scrollTools .mCSB_draggerContainer {
+  height: 100%;
+  width: auto;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.mCSB_horizontal .mCSB_scrollTools .mCSB_buttonLeft + .mCSB_draggerContainer {
+  padding-bottom: 0;
+  padding-right: 20px;
+}
+
+.mCSB_horizontal .mCSB_scrollTools .mCSB_draggerRail {
+  width: 100%;
+  height: 2px;
+  margin: 7px 0;
+  border-radius: 10px;
+}
+
+.mCSB_horizontal .mCSB_scrollTools .mCSB_dragger {
+  width: 30px;
+  height: 100%;
+}
+
+.mCSB_horizontal .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+  width: 100%;
+  height: 10px;
+  margin: 6px auto;
+  border-radius: 10px;
+}
+
+.mCSB_horizontal .mCSB_scrollTools .mCSB_buttonLeft,
+.mCSB_horizontal .mCSB_scrollTools .mCSB_buttonRight {
+  width: 20px;
+  height: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+  cursor: pointer;
+  float: left;
+}
+
+.mCSB_horizontal .mCSB_scrollTools .mCSB_buttonRight {
+  right: 0;
+  bottom: auto;
+  margin-left: -40px;
+  margin-top: -16px;
+  float: right;
+}
+
+/* default scrollbar colors and backgrounds */
+.mCustomScrollBox .mCSB_scrollTools {
+  opacity: 0.75;
+}
+
+.mCustomScrollBox:hover .mCSB_scrollTools {
+  opacity: 1;
+}
+
+.mCSB_scrollTools .mCSB_draggerRail {
+  background: #000;
+  /* rgba fallback */
+  background: rgba(0, 0, 0, 0.4);
+  filter: "alpha(opacity=40)";
+  -ms-filter: "alpha(opacity=40)";
+  /* old ie */
+}
+
+.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+  background: #fff;
+  /* rgba fallback */
+  background: rgba(255, 255, 255, 0.75);
+  filter: "alpha(opacity=75)";
+  -ms-filter: "alpha(opacity=75)";
+  /* old ie */
+}
+
+.mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar {
+  background: rgba(255, 255, 255, 0.85);
+  filter: "alpha(opacity=85)";
+  -ms-filter: "alpha(opacity=85)";
+  /* old ie */
+}
+
+.mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
+.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar {
+  background: rgba(255, 255, 255, 0.9);
+  filter: "alpha(opacity=90)";
+  -ms-filter: "alpha(opacity=90)";
+  /* old ie */
+}
+
+.mCSB_scrollTools .mCSB_buttonUp,
+.mCSB_scrollTools .mCSB_buttonDown,
+.mCSB_scrollTools .mCSB_buttonLeft,
+.mCSB_scrollTools .mCSB_buttonRight {
+  background-image: url(mCSB_buttons.png);
+  background-repeat: no-repeat;
+  opacity: 0.4;
+  filter: "alpha(opacity=40)";
+  -ms-filter: "alpha(opacity=40)";
+  /* old ie */
+}
+
+.mCSB_scrollTools .mCSB_buttonUp {
+  background-position: 0 0;
+  /*
+  sprites locations are 0 0/-16px 0/-32px 0/-48px 0 (light) and -80px 0/-96px 0/-112px 0/-128px 0 (dark)
+  */
+}
+
+.mCSB_scrollTools .mCSB_buttonDown {
+  background-position: 0 -20px;
+  /*
+  sprites locations are 0 -20px/-16px -20px/-32px -20px/-48px -20px (light) and -80px -20px/-96px -20px/-112px -20px/-128px -20px (dark)
+  */
+}
+
+.mCSB_scrollTools .mCSB_buttonLeft {
+  background-position: 0 -40px;
+  /*
+  sprites locations are 0 -40px/-20px -40px/-40px -40px/-60px -40px (light) and -80px -40px/-100px -40px/-120px -40px/-140px -40px (dark)
+  */
+}
+
+.mCSB_scrollTools .mCSB_buttonRight {
+  background-position: 0 -56px;
+  /*
+  sprites locations are 0 -56px/-20px -56px/-40px -56px/-60px -56px (light) and -80px -56px/-100px -56px/-120px -56px/-140px -56px (dark)
+  */
+}
+
+.mCSB_scrollTools .mCSB_buttonUp:hover,
+.mCSB_scrollTools .mCSB_buttonDown:hover,
+.mCSB_scrollTools .mCSB_buttonLeft:hover,
+.mCSB_scrollTools .mCSB_buttonRight:hover {
+  opacity: 0.75;
+  filter: "alpha(opacity=75)";
+  -ms-filter: "alpha(opacity=75)";
+  /* old ie */
+}
+
+.mCSB_scrollTools .mCSB_buttonUp:active,
+.mCSB_scrollTools .mCSB_buttonDown:active,
+.mCSB_scrollTools .mCSB_buttonLeft:active,
+.mCSB_scrollTools .mCSB_buttonRight:active {
+  opacity: 0.9;
+  filter: "alpha(opacity=90)";
+  -ms-filter: "alpha(opacity=90)";
+  /* old ie */
+}
+
+.stylishSelectWrapper {
+  position: relative;
+  vertical-align: top;
+}
+.stylishSelectWrapper select {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+.stylishSelectWrapper select.ssHidden {
+  opacity: 0;
+  z-index: -1;
+  position: relative;
+}
+.stylishSelectWrapper iframe {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 1;
+  width: 100%;
+}
+.stylishSelectWrapper .ssSelectWrapper {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 3;
+  height: 23px;
+}
+.stylishSelectWrapper .ssSelectWrapper .ssText {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 21px;
+  height: 21px;
+  padding: 0px 3px;
+  background-color: white;
+  overflow: hidden;
+  float: none;
+  position: absolute;
+  z-index: 100;
+  border-radius: 3px 0 0 3px;
+}
+.stylishSelectWrapper .ssSelectWrapper .ssOpenButton {
+  border-radius: 0 3px 3px 0;
+  position: absolute;
+  right: 0px;
+  width: 21px;
+  height: 19px;
+  background: white url(images/transcribers/select_menu_arrow.png) no-repeat center center;
+  z-index: 100;
+  display: block;
+  border-top: solid white 1px;
+  border-bottom: solid white 1px;
+  border-right: solid white 1px;
+}
+.stylishSelectWrapper .ssSelectWrapper ul {
+  position: absolute;
+  top: 23px;
+  left: 0px;
+  list-style: none;
+  display: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  z-index: 100;
+  width: 95%;
+  background-color: white;
+  border: solid #b2afa7 1px;
+  height: 150px;
+}
+.stylishSelectWrapper .ssSelectWrapper ul li {
+  font-family: "Helvetica", sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 21px;
+  padding-bottom: 0px;
+  border-top: solid #b2afa7 1px;
+}
+.stylishSelectWrapper .ssSelectWrapper ul li:first-child {
+  border-top: none;
+}
+.stylishSelectWrapper .ssSelectWrapper ul li a {
+  color: #40484d;
+  background-color: white;
+  display: block;
+  padding: 5px;
+  text-decoration: none;
+}
+.stylishSelectWrapper .ssSelectWrapper ul li a:hover, .stylishSelectWrapper .ssSelectWrapper ul li a.selected {
+  background: #F5F4F2;
+}
+.stylishSelectWrapper .ssSelectWrapper ul li span.disabled {
+  color: #b2afa7;
+  background-color: white;
+  display: block;
+  padding: 5px;
+}
+.stylishSelectWrapper .ssSelectWrapper:hover .ssText, .stylishSelectWrapper .ssSelectWrapper.expanded .ssText {
+  border-color: #b2afa7;
+}
+.stylishSelectWrapper .ssSelectWrapper.disabled .ssText {
+  color: #b2afa7;
+  border-color: white !important;
+}
+.stylishSelectWrapper .ssSelectWrapper.disabled .ssOpenButton {
+  background: none !important;
+  border-top: solid white 1px !important;
+  border-bottom: solid white 1px !important;
+  border-right: solid white 1px !important;
+}

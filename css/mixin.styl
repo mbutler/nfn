@@ -1,0 +1,67 @@
+
+// Mixins
+#white-box
+  background: #fff
+  border-bottom: 1px solid #222
+  box-sizing: border-box
+  padding: 12px 19px
+
+#page-header
+  @extends #white-box
+  height: 366px
+
+#page-header-small
+  @extends #white-box
+  padding: 12px 40px
+
+#semantic-list
+  list-style: none
+  margin: 0
+  padding: 0
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.center {
+  text-align: center;
+}
+
+.nomargin {
+  margin: 0px!important;
+}
+
+.columns
+  clearfix()
+
+  > .column
+    box-sizing: border-box
+    float: left
+    padding: 0 15px
+
+  &.one
+
+    > .column
+      width: 100%
+      
+  &.two
+
+    > .column
+      width: 50%
+
+      &.wide
+        width: 66%
+
+      &.narrow
+        width: 33%
+
+  &.three
+
+    > .column
+      width: 33%
+
+
