@@ -20,6 +20,38 @@
   <a href="http://talk.notesfromnature.org/#/subjects/{{subject.zooniverse_id}}" id="talk-link" target="_blank"><span>Discuss</span></a>
 </script>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/template" id="allmodal-template">
+  <div class="content">
+    <div class="text">
+      <p>Welcome to CalBug on Notes from Nature and thank you for helping us transcribe specimen records.</p>
+      <p>Data from insect collections are notoriously difficult to digitize since most insects are pinned with small data labels directly underneath the specimens. The imaging gurus at CalBug have perfected methods of removing the labels and getting great photos. Now we need your help transcribing these records, making them much more useful for biodiversity research.</p>
+      <p>To start the process we have already transcribed the species name for each record, so we have that information in hand. What we don’t have is all the other information, such as the locality where the specimen was found, the date it was collected, etc. You can provide that via a step-by-step process of typing what you see on the labels into the right spots using your transcribing tool!</p>
+    </div>
+    <button>Next</button>
+  </div>
+</script>
+
 <script type="text/template" id="popup-template">
   <div class="content">
     <div class="text">

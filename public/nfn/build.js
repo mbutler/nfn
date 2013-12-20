@@ -11150,6 +11150,9 @@ nfn.ui.view.BugsWidget = nfn.ui.view.Widget.extend({
   },
 
   showAllModal: function(e) {
+  	e && e.preventDefault();
+    e && e.stopImmediatePropagation();
+    this.closeAllModal();
     this.createAllModal(e);
   },
 
@@ -11157,12 +11160,26 @@ nfn.ui.view.BugsWidget = nfn.ui.view.Widget.extend({
     //$target     = this.$allButton;
     this.popup = new nfn.ui.view.Popup({
           model: new nfn.ui.model.Popup(),
-          template: $('#popup-template').html(),
+          template: $('#allmodal-template').html(),
           
         });
+
         this.addView(this.popup);
-        
-    this.$el.append(this.popup.render());
+       
+        this.$el.append(this.popup.render());
+    
+  },
+
+    closeAllModal: function(callback) {
+
+    if (!this.popup) return;
+
+    this.popup.hide();
+    this.popup.clean();
+    delete this.popup;
+
+    callback && callback();
+
   },
 
   showSkipTooltip: function(e) {
